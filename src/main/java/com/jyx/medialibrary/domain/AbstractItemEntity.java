@@ -7,12 +7,12 @@ import java.time.LocalDate;
 
 @Data
 @Builder
-public abstract class AbstractItemEntity {
+public class AbstractItemEntity {
 
-    private Long id;
-    private String name;
-    private String category;
-    private String description;
-    private Integer quantity;
-    private LocalDate releaseDate;
+	private Long id;
+	private String name;
+	private String category;
+	private String description;
+	private Integer quantity;
+	private LocalDate releaseDate;
 }
