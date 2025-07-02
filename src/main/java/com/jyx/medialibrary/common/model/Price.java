@@ -13,12 +13,10 @@ import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Data
 @Slf4j
-@NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @Entity
@@ -26,17 +24,21 @@ import lombok.extern.slf4j.Slf4j;
 public class Price {
 
 	@Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
-
-	@Column(nullable = false)
-	private String currency;
+	@GeneratedValue(strategy = GenerationType.UUID)
+	private UUID id;
 
 	@Column(nullable = false)
 	private BigDecimal value;
 
-	 
-
+	@Column(nullable = false)
+	private String currency;
+	
+	public Price(BigDecimal value, String currency) {
+		this.value = value;
+		this.currency = currency;
+	}
+	
+	
 
 	@Override
 	public boolean equals(Object o) {
@@ -59,4 +61,6 @@ public class Price {
 	public String toString() {
 		return "Price{" + "id=" + id + ", currency='" + currency + '\'' + ", value=" + value + '}';
 	}
+
+	
 }
