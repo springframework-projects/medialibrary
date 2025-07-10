@@ -1,7 +1,7 @@
 //package com.jyx.medialibrary.movies.model;
 //
 //import com.jyx.medialibrary.common.model.Item;
-//import com.jyx.medialibrary.common.model.Price;
+//import com.jyx.medialibrary.domain.Price;
 //import com.jyx.medialibrary.model.enums.Category;
 //
 //import jakarta.persistence.Column;

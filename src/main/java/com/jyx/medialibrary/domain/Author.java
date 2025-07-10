@@ -1,4 +1,4 @@
-package com.jyx.medialibrary.bookstore.model;
+package com.jyx.medialibrary.domain;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -19,7 +19,6 @@ import java.util.UUID;
 @Entity
 @Table(name = "authors")
 public class Author {
-	
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.UUID)
@@ -34,5 +33,4 @@ public class Author {
 	@ManyToMany(mappedBy = "authors")
 	private Set<Book> books = new HashSet<>();
 
-	 
 }

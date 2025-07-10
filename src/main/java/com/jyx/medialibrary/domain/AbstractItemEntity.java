@@ -1,4 +1,4 @@
-package com.jyx.medialibrary.common.model;
+package com.jyx.medialibrary.domain;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -38,9 +38,6 @@ public abstract class AbstractItemEntity {
 	@GeneratedValue(strategy = GenerationType.UUID)
 	private UUID id;
 
-	@Column(nullable = false)
-	private String name;
-
 	@Column(length = 1000) // Adjust length as needed
 	private String description;
 
@@ -48,7 +45,7 @@ public abstract class AbstractItemEntity {
 	@Column(nullable = false)
 	MediaItemCategory mediaItemCategory;
 
-	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
 	@JoinColumn(name = "price_id", referencedColumnName = "id")
 	private Price price;
 

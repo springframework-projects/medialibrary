@@ -1,4 +1,4 @@
-package com.jyx.medialibrary.bookstore.model.enums;
+package com.jyx.medialibrary.domain;
 
 public enum BookGenre {
 	COMEDY, ROMANCE, THRILLER, IT

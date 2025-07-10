@@ -1,4 +1,4 @@
-package com.jyx.medialibrary.common.model;
+package com.jyx.medialibrary.domain;
 
 import java.math.BigDecimal;
 import java.util.Objects;
@@ -13,10 +13,12 @@ import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Data
 @Slf4j
+@NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @Entity
@@ -27,14 +29,14 @@ public class Price {
 	@GeneratedValue(strategy = GenerationType.UUID)
 	private UUID id;
 
-	@Column(nullable = false)
-	private BigDecimal value;
+	@Column(name = "amount", nullable = false)
+	private BigDecimal amount;
 
 	@Column(nullable = false)
 	private String currency;
 	
-	public Price(BigDecimal value, String currency) {
-		this.value = value;
+	public Price(BigDecimal amount, String currency) {
+		this.amount = amount;
 		this.currency = currency;
 	}
 	
@@ -47,19 +49,19 @@ public class Price {
 		if (o == null || getClass() != o.getClass())
 			return false;
 		Price price = (Price) o;
-		return Objects.equals(value, price.value) && Objects.equals(currency, price.currency);
+		return Objects.equals(amount, price.amount) && Objects.equals(currency, price.currency);
 	}
 
 	// HashCode method
 	@Override
 	public int hashCode() {
-		return Objects.hash(currency, value);
+		return Objects.hash(currency, amount);
 	}
 
 	// toString method
 	@Override
 	public String toString() {
-		return "Price{" + "id=" + id + ", currency='" + currency + '\'' + ", value=" + value + '}';
+		return "Price{" + "id=" + id + ", currency='" + currency + '\'' + ", value=" + amount + '}';
 	}
 
 	

@@ -1,4 +1,4 @@
-package com.jyx.medialibrary.bookstore.controller;
+package com.jyx.medialibrary.controller;
 
 import java.util.List;
 
@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.jyx.medialibrary.bookstore.model.Author;
-import com.jyx.medialibrary.bookstore.repository.AuthorRepository;
+import com.jyx.medialibrary.domain.Author;
+import com.jyx.medialibrary.repository.AuthorRepository;
 
 @RestController
 @RequestMapping("/api/v1")
