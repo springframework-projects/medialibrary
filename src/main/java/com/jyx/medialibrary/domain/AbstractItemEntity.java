@@ -34,42 +34,40 @@ import lombok.NoArgsConstructor;
 @DiscriminatorColumn(name = "item_type", discriminatorType = DiscriminatorType.STRING)
 public abstract class AbstractItemEntity {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.UUID)
-	private UUID id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
 
-	@Column(length = 1000) // Adjust length as needed
-	private String description;
+    @Column(length = 1000) // Adjust length as needed
+    private String description;
 
-	@Enumerated(EnumType.STRING)
-	@Column(nullable = false)
-	MediaItemCategory mediaItemCategory;
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    MediaItemCategory mediaItemCategory;
 
-	@OneToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
-	@JoinColumn(name = "price_id", referencedColumnName = "id")
-	private Price price;
+    @OneToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+    @JoinColumn(name = "price_id", referencedColumnName = "id")
+    private Price price;
 
-	private String imageUrl;
+    private String imageUrl;
 
-	private boolean available;
+    private boolean available;
 
-	@Column(updatable = false) // Set once, not updated later
-	private LocalDateTime createdAt;
+    @Column(updatable = false) // Set once, not updated later
+    private LocalDateTime createdAt;
 
-	private LocalDateTime updatedAt;
+    private LocalDateTime updatedAt;
 
-	// You can add methods for common behavior here too, e.g., price calculation
-	// public Double getPriceWithTax() { return this.price * 1.20; }
 
-	@PrePersist
-	protected void onCreate() {
-		this.createdAt = LocalDateTime.now();
-		this.updatedAt = LocalDateTime.now(); // Set initially on creation
-	}
+    @PrePersist
+    protected void onCreate() {
+        this.createdAt = LocalDateTime.now();
+        this.updatedAt = LocalDateTime.now(); // Set initially on creation
+    }
 
-	@PreUpdate
-	protected void onUpdate() {
-		this.updatedAt = LocalDateTime.now();
-	}
+    @PreUpdate
+    protected void onUpdate() {
+        this.updatedAt = LocalDateTime.now();
+    }
 
 }
