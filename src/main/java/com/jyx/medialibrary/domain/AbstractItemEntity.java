@@ -1,5 +1,6 @@
 package com.jyx.medialibrary.domain;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -30,8 +31,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Entity
 @Table(name = "items")
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "item_type", discriminatorType = DiscriminatorType.STRING)
+@Inheritance(strategy = InheritanceType.JOINED)
 public abstract class AbstractItemEntity {
 
     @Id
@@ -45,15 +45,16 @@ public abstract class AbstractItemEntity {
     @Column(nullable = false)
     MediaItemCategory mediaItemCategory;
 
-    @OneToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
-    @JoinColumn(name = "price_id", referencedColumnName = "id")
-    private Price price;
+    @Column(nullable = false)
+    private BigDecimal price;
 
+    @Column(nullable = false)
     private String imageUrl;
 
+    @Column(nullable = false)
     private boolean available;
 
-    @Column(updatable = false) // Set once, not updated later
+    @Column(updatable = false, nullable = false) // Set once, not updated later
     private LocalDateTime createdAt;
 
     private LocalDateTime updatedAt;

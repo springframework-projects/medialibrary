@@ -1,37 +1,34 @@
 package com.jyx.medialibrary.config;
 
-import java.time.LocalDate;
-import java.util.*;
-import java.time.*;
-import java.math.BigDecimal;
-
-import org.springframework.boot.CommandLineRunner;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-
 import com.github.javafaker.Faker;
 import com.jyx.medialibrary.domain.Author;
 import com.jyx.medialibrary.domain.Book;
 import com.jyx.medialibrary.domain.BookGenre;
+import com.jyx.medialibrary.domain.MediaItemCategory;
 import com.jyx.medialibrary.repository.AuthorRepository;
 import com.jyx.medialibrary.repository.BookRepository;
-import com.jyx.medialibrary.repository.PriceRepository;
-import com.jyx.medialibrary.domain.MediaItemCategory;
-import com.jyx.medialibrary.domain.Price;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Random;
 
 @Configuration
 public class DBLoader {
 
     private final BookRepository bookRepository;
     private final AuthorRepository authorRepository;
-    private final PriceRepository priceRepository; // Add this
 
     private final Faker faker = new Faker();
 
-    public DBLoader(BookRepository bookRepository, AuthorRepository authorRepository, PriceRepository priceRepository) {
+    public DBLoader(BookRepository bookRepository, AuthorRepository authorRepository) {
         this.bookRepository = bookRepository;
         this.authorRepository = authorRepository;
-        this.priceRepository = priceRepository;
     }
 
     @Bean
@@ -51,15 +48,7 @@ public class DBLoader {
             }
             authorRepository.saveAll(authors);
 
-            // Save prices first
-            List<Price> prices = new ArrayList<>();
-            for (int i = 0; i < 10; i++) {
-                Price price = new Price();
-                price.setAmount(BigDecimal.valueOf(faker.number().randomDouble(2, 10, 100)));
-                price.setCurrency("EUR");
-                prices.add(price);
-            }
-            priceRepository.saveAll(prices);
+
 
             // Create books with prices and parent class fields
             List<Book> books = new ArrayList<>();
@@ -68,17 +57,20 @@ public class DBLoader {
 
             for (int i = 0; i < 10; i++) {
                 Book book = new Book();
-                // Set MediaItem (parent) fields
-                book.setTitle(faker.book().title());
-                book.setDescription(faker.lorem().paragraph());
 
+                // base attributes
+                book.setDescription(faker.lorem().paragraph());
+                book.setMediaItemCategory(MediaItemCategory.BOOK);
+                book.setPrice(BigDecimal.valueOf(10 + random.nextLong(90)));
+                book.setImageUrl(faker.internet().image());
+                book.setAvailable(true);
                 book.setMediaItemCategory(MediaItemCategory.BOOK);
                 book.setAvailable(true);
 
-                // Set Book specific fields
-                book.setBookGenre(genres[random.nextInt(genres.length)]);
+                // book specific attributes
+                book.setTitle(faker.book().title());
                 book.setIsbn("978" + faker.number().digits(10));
-                book.setPrice(prices.get(i));
+                book.setBookGenre(genres[random.nextInt(genres.length)]);
 
                 // Assign 1-3 random authors
                 HashSet<Author> bookAuthors = new HashSet<>();

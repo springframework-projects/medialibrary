@@ -15,7 +15,7 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@DiscriminatorValue("LIBRARY")
+@PrimaryKeyJoinColumn(name = "item_id")
 @Builder
 public class Book extends AbstractItemEntity {
 
