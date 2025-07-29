@@ -1,11 +1,9 @@
 package com.jyx.medialibrary.repository;
 
-import java.util.UUID;
-
+import com.jyx.medialibrary.domain.Book;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.jyx.medialibrary.domain.Book;
+import java.util.UUID;
 
 public interface BookRepository extends JpaRepository<Book, UUID> {
-
 }
