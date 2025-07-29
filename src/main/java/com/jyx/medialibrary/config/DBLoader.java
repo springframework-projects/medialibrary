@@ -36,7 +36,7 @@ public class DBLoader {
         return args -> {
             // Create authors
             List<Author> authors = new ArrayList<>();
-            for (int i = 0; i < 5; i++) {
+            for (int i = 0; i < 10; i++) {
                 Author author = new Author();
                 author.setName(faker.name().fullName());
                 LocalDate birthDate = LocalDate.of(
@@ -55,7 +55,7 @@ public class DBLoader {
             Random random = new Random();
             BookGenre[] genres = BookGenre.values();
 
-            for (int i = 0; i < 10; i++) {
+            for (int i = 0; i < 25; i++) {
                 Book book = new Book();
 
                 // base attributes
